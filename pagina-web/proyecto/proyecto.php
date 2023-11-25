@@ -3,7 +3,7 @@ include "../includes/header.php";
 ?>
 
 <!-- TÍTULO. Cambiarlo, pero dejar especificada la analogía -->
-<h1 class="mt-3">Entidad análoga a PROYECTO (NOMBRE)</h1>
+<h1 class="mt-3">LLAMADA</h1>
 
 <!-- FORMULARIO. Cambiar los campos de acuerdo a su trabajo -->
 <div class="formulario p-4 m-3 border rounded-3">
@@ -16,14 +16,15 @@ include "../includes/header.php";
         </div>
 
         <div class="mb-3">
-            <label for="fechacreacion" class="form-label">Fecha de creación</label>
-            <input type="date" class="form-control" id="fechacreacion" name="fechacreacion" required>
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="date" class="form-control" id="fecha" name="fecha" required>
         </div>
 
         <div class="mb-3">
-            <label for="valor" class="form-label">Valor</label>
-            <input type="number" class="form-control" id="valor" name="valor" required>
+            <label for="hora" class="form-label">Hora</label>
+            <input type="time" class="form-control" id="hora" name="hora" required>
         </div>
+
         
         <!-- Consultar la lista de clientes y desplegarlos -->
         <div class="mb-3">
@@ -45,37 +46,7 @@ include "../includes/header.php";
                 ?>
 
                 <!-- Opción que se genera -->
-                <option value="<?= $fila["cedula"]; ?>"><?= $fila["nombre"]; ?> - C.C. <?= $fila["cedula"]; ?></option>
-
-                <?php
-                        // Cerrar los estructuras de control
-                    endforeach;
-                endif;
-                ?>
-            </select>
-        </div>
-
-        <!-- Consultar la lista de empresas y desplegarlos -->
-        <div class="mb-3">
-            <label for="empresa" class="form-label">Empresa</label>
-            <select name="empresa" id="empresa" class="form-select">
-                
-                <!-- Option por defecto -->
-                <option value="" selected disabled hidden></option>
-
-                <?php
-                // Importar el código del otro archivo
-                require("../empresa/empresa_select.php");
-                
-                // Verificar si llegan datos
-                if($resultadoEmpresa):
-                    
-                    // Iterar sobre los registros que llegaron
-                    foreach ($resultadoEmpresa as $fila):
-                ?>
-
-                <!-- Opción que se genera -->
-                <option value="<?= $fila["nit"]; ?>"><?= $fila["nombre"]; ?> - NIT: <?= $fila["nit"]; ?></option>
+                <option value="<?= $fila["correo"]; ?>"><?= $fila["nombre"]; ?> - Correo <?= $fila["correo"]; ?></option>
 
                 <?php
                         // Cerrar los estructuras de control
@@ -108,11 +79,9 @@ if($resultadoProyecto and $resultadoProyecto->num_rows > 0):
         <thead class="table-dark">
             <tr>
                 <th scope="col" class="text-center">Código</th>
-                <th scope="col" class="text-center">Fecha de creación</th>
-                <th scope="col" class="text-center">Valor</th>
+                <th scope="col" class="text-center">Fecha</th>
+                <th scope="col" class="text-center">Hora</th>
                 <th scope="col" class="text-center">Cliente</th>
-                <th scope="col" class="text-center">Empresa</th>
-                <th scope="col" class="text-center">Acciones</th>
             </tr>
         </thead>
 
@@ -125,12 +94,11 @@ if($resultadoProyecto and $resultadoProyecto->num_rows > 0):
 
             <!-- Fila que se generará -->
             <tr>
-                <!-- Cada una de las columnas, con su valor correspondiente -->
+                <!-- Cada una de las columnas, con su Hora correspondiente -->
                 <td class="text-center"><?= $fila["codigo"]; ?></td>
-                <td class="text-center"><?= $fila["fechacreacion"]; ?></td>
-                <td class="text-center">$<?= $fila["valor"]; ?></td>
-                <td class="text-center">C.C. <?= $fila["cliente"]; ?></td>
-                <td class="text-center">NIT: <?= $fila["empresa"]; ?></td>
+                <td class="text-center"><?= $fila["fecha"]; ?></td>
+                <td class="text-center">$<?= $fila["Hora"]; ?></td>
+                <td class="text-center">Correo <?= $fila["cliente"]; ?></td>
                 
                 <!-- Botón de eliminar. Debe de incluir la CP de la entidad para identificarla -->
                 <td class="text-center">

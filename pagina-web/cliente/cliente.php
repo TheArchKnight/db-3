@@ -12,8 +12,8 @@ include "../includes/header.php";
     <form action="cliente_insert.php" method="post" class="form-group">
 
         <div class="mb-3">
-            <label for="codigo" class="form-label">Código</label>
-            <input type="number" class="form-control" id="codigo" name="codigo" required>
+            <label for="correo" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="correo" name="correo" required>
         </div>
 
         <div class="mb-3">
@@ -22,8 +22,8 @@ include "../includes/header.php";
         </div>
 
         <div class="mb-3">
-            <label for="fecha" class="form-label">Fecha</label>
-            <input type="date" class="form-control" id="fecha" name="fecha" required>
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="direccion" name="direccion" required>
         </div>
 
         <div class="mb-3">
@@ -53,8 +53,8 @@ if($resultadoCliente and $resultadoCliente->num_rows > 0):
         <!-- Títulos de la tabla, cambiarlos -->
         <thead class="table-dark">
             <tr>
-                <th scope="col" class="text-center">Código</th>
-                <th scope="col" class="text-center">Teléfono</th>
+                <th scope="col" class="text-center">Correo</th>
+                <th scope="col" class="text-center">Dirección</th>
                 <th scope="col" class="text-center">Fecha</th>
                 <th scope="col" class="text-center">Nombre</th>
             </tr>
@@ -70,15 +70,15 @@ if($resultadoCliente and $resultadoCliente->num_rows > 0):
             <!-- Fila que se generará -->
             <tr>
                 <!-- Cada una de las columnas, con su valor correspondiente -->
-                <td class="text-center"><?= $fila["Código"]; ?></td>
+                <td class="text-center"><?= $fila["Correo"]; ?></td>
                 <td class="text-center"><?= $fila["Teléfono"]; ?></td>
-                <td class="text-center"><?= $fila["Fecha"]; ?></td>
+                <td class="text-center"><?= $fila["Rirección"]; ?></td>
                 <td class="text-center"><?= $fila["Nombre"]; ?></td>
                 
                 <!-- Botón de eliminar. Debe de incluir la CP de la entidad para identificarla -->
                 <td class="text-center">
                     <form action="cliente_delete.php" method="post">
-                        <input hidden type="text" name="codigoEliminar" value="<?= $fila["Código"]; ?>">
+                        <input hidden type="text" name="correoEliminar" value="<?= $fila["Correo"]; ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>
