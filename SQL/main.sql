@@ -8,18 +8,18 @@ CREATE TABLE cliente(
    direccion VARCHAR(40),
    nombre VARCHAR(20)
 );
+
 CREATE TABLE departamento(
    codigo INT PRIMARY KEY,
    numero_empleados INT
 );
 
 CREATE TABLE grupo_fumigacion(
-   departamento INT PRIMARY KEY,
-   FOREIGN KEY (departamento) REFERENCES departamento(codigo)
+   codigo_departamento INT PRIMARY KEY REFERENCES departamento
 );
+
 CREATE TABLE oficina(
-   departamento INT PRIMARY KEY,
-   FOREIGN KEY (departamento) REFERENCES departamento(codigo)
+   codigo_departamento INT PRIMARY KEY REFERENCES departamento
 );
 
 CREATE TABLE empleado(
@@ -30,47 +30,47 @@ CREATE TABLE empleado(
 );
 
 CREATE TABLE oficinista(
-   empleado INT PRIMARY KEY,
-   oficina INT,
-   FOREIGN KEY (empleado) REFERENCES empleado(cedula),
-   FOREIGN KEY (oficina) REFERENCES oficina(departamento)
+   cedula_empleado INT PRIMARY KEY REFERENCES empleado,
+   oficina INT REFERENCES oficina
 );
+
 CREATE table empleado_de_grupo(
-   empleado INT PRIMARY KEY,
-   FOREIGN KEY (empleado) REFERENCES empleado(cedula)
+   cedula_empleado INT PRIMARY KEY REFERENCES empleado
 );
+
+CREATE TABLE cotizacion(
+   codigo INT PRIMARY KEY,
+   monto VARCHAR(15),
+   detalle VARCHAR(255)
+);
+
+CREATE TABLE visita(
+   codigo INT PRIMARY KEY,
+   fecha DATE,
+   hora VARCHAR(5), -- es una clave primaria candidata
+   costo VARCHAR(50),
+   tipo VARCHAR(20),
+   reporte VARCHAR(250),
+   observaciones VARCHAR(50),
+   codigo_departamento INT REFERENCES grupo_fumigacion,
+   codigo_cotizacion INT REFERENCES cotizacion,
+);
+
+ALTER TABLE cotizacion ADD codigo_proxima_visita INT REFERENCES cotizacion;
 
 CREATE TABLE llamada(
    codigo INT PRIMARY KEY,
    fecha DATE,
    hora VARCHAR(5),
-   cliente VARCHAR(25),
-   empleado INT,
-   FOREIGN KEY (empleado) REFERENCES oficinista(empleado),
-   FOREIGN KEY (cliente) REFERENCES cliente(correo)
-);
-CREATE TABLE cotizacion(
-   codigo INT PRIMARY KEY,
-   monto VARCHAR(15),
-   detalle VARCHAR(255),
-   cliente_correo VARCHAR(25),
-   llamada INT,
-   FOREIGN KEY (cliente_correo) REFERENCES cliente(correo),
-   FOREIGN KEY (llamada) REFERENCES llamada(codigo)
-);
-
-CREATE TABLE visita(
-   codigo INT PRIMARY KEY,
-   hora VARCHAR(5), -- es una clave primaria candidata
-   tipo VARCHAR(20),
-   reporte VARCHAR(250),
-   observaciones VARCHAR(50),
-   grupo_fumigacion INT,
-   cotizacion INT,
-   cotizacion_adicionada INT UNIQUE,
-   FOREIGN KEY (cotizacion_adicionada) REFERENCES cotizacion(codigo),
-   FOREIGN KEY (cotizacion) REFERENCES cotizacion(codigo),
-   FOREIGN KEY (grupo_fumigacion) REFERENCES grupo_fumigacion(departamento)
+   correo_cliente VARCHAR(25) REFERENCES cliente,
+   cedula_empleado INT REFERENCES oficinista,
+   codigo_cotizacion INT REFERENCES cotizacion,
+   codigo_visita INT REFERENCES visita,
+   CHECK (
+      (codigo_cotizacion IS NULL AND codigo_visita IS NOT NULL)
+      OR
+      (codigo_cotizacion IS NOT NULL AND codigo_visita IS NULL)
+   ) 
 );
 
 CREATE TABLE permiso(
@@ -82,14 +82,9 @@ CREATE TABLE permiso(
 CREATE TABLE tarea (
    clave INT PRIMARY KEY,
    descripcion VARCHAR(220),
-   grupo_fumigacion INT,
-   tarea_procedida INT UNIQUE,
-   tarea_antecedida INT UNIQUE,
-   permiso INT UNIQUE,
-   FOREIGN KEY (permiso) REFERENCES permiso(clave_acceso),
-   FOREIGN KEY (tarea_procedida) REFERENCES tarea(clave),
-   FOREIGN KEY (tarea_antecedida) REFERENCES tarea(clave),
-   FOREIGN KEY (grupo_fumigacion) REFERENCES grupo_fumigacion(departamento)
+   codigo_departamento INT REFERENCES grupo_fumigacion,
+   codigo_tarea INT UNIQUE REFERENCES tarea,
+   clave_permiso INT UNIQUE REFERENCES permiso,
 );
 
 CREATE TABLE producto(
@@ -100,15 +95,12 @@ CREATE TABLE producto(
    especificaciones_uso VARCHAR(250),
    fabricante VARCHAR(25),
    nivel_acceso INT,
-   permiso INT,
-   visita INT,
-   FOREIGN KEY (permiso) REFERENCES permiso(clave_acceso),
-   FOREIGN KEY (visita) REFERENCES visita(codigo)
+   clave_permiso INT REFERENCES permiso,
+   codigo_visita INT REFERENCES visita,
 );
 
 CREATE TABLE empleado_en_grupo(
-   empleado_de_grupo INT, 
-   grupo_fumigacion INT,
-   FOREIGN KEY (empleado_de_grupo) REFERENCES empleado_de_grupo(empleado),
-   FOREIGN KEY (grupo_fumigacion) REFERENCES grupo_fumigacion(departamento)
+   cedula_empleado INT REFERENCES empleado_de_grupo, 
+   codigo_departamento INT REFERENCES grupo_fumigacion,
+   PRIMARY KEY clave_permiso, codigo-visita
 );
