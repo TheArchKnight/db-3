@@ -7,14 +7,14 @@ require('../config/conexion.php');
 $identificadorEliminar = $_POST["identificadorEliminar"];
 
 // Query SQL a la BD
-$query = "DELETE FROM proyecto WHERE identificador = '$identificadorEliminar'";
+$query = "DELETE FROM visita WHERE identificador = '$identificadorEliminar'";
 
 // Ejecutar consulta
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 if($result): 
     // Si fue exitosa, redirigirse de nuevo a la página de la entidad
-    header ("Location: proyecto.php");
+    header ("Location: visita.php");
 else:
     echo "Ha ocurrido un error al eliminar este registro";
 endif;

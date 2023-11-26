@@ -8,7 +8,7 @@ include "../includes/header.php";
 <!-- FORMULARIO. Cambiar los campos de acuerdo a su trabajo -->
 <div class="formulario p-4 m-3 border rounded-3">
 
-    <form action="proyecto_insert.php" method="post" class="form-group">
+    <form action="visita_insert.php" method="post" class="form-group">
         <!-- CP -->
         <div class="mb-3">
             <label for="identificador" class="form-label">Identificador</label>
@@ -83,10 +83,10 @@ include "../includes/header.php";
 
 <?php
 // Importar el código del otro archivo
-require("proyecto_select.php");
+require("visita_select.php");
             
 // Verificar si llegan datos
-if($resultadoProyecto and $resultadoProyecto->num_rows > 0):
+if($resultadoVisita and $resultadoVisita->num_rows > 0):
 ?>
 
 <!-- MOSTRAR LA TABLA. Cambiar las cabeceras -->
@@ -114,19 +114,19 @@ if($resultadoProyecto and $resultadoProyecto->num_rows > 0):
 
             <?php
             // Iterar sobre los registros que llegaron
-            foreach ($resultadoProyecto as $fila):
+            foreach ($resultadoVisita as $fila):
             ?>
 
             <!-- Fila que se generará -->
             <tr>
                 <!-- Cada una de las columnas, con su Hora correspondiente -->
-                <td class="text-center"><?= $fila["Identificador"]; ?></td>
+                <td class="text-center"><?= $fila["identificador"]; ?></td>
                 <td class="text-center"><?= $fila["fecha"]; ?></td>
-                <td class="text-center"><?= $fila["Hora"]; ?></td>
-                <td class="text-center"><?= $fila["Costo"]; ?></td>
-                <td class="text-center"><?= $fila["Tipo"]; ?></td>
-                <td class="text-center"><?= $fila["Reporte"]; ?></td>
-                <td class="text-center"><?= $fila["Observaciones"]; ?></td>
+                <td class="text-center"><?= $fila["hora"]; ?></td>
+                <td class="text-center"><?= $fila["costo"]; ?></td>
+                <td class="text-center"><?= $fila["tipo"]; ?></td>
+                <td class="text-center"><?= $fila["reporte"]; ?></td>
+                <td class="text-center"><?= $fila["observaciones"]; ?></td>
 
 
                 <!-- Entidad relacionada -->
@@ -134,7 +134,7 @@ if($resultadoProyecto and $resultadoProyecto->num_rows > 0):
                 
                 <!-- Botón de eliminar. Debe de incluir la CP de la entidad para identificarla -->
                 <td class="text-center">
-                    <form action="proyecto_delete.php" method="post">
+                    <form action="visita_delete.php" method="post">
                         <input hidden type="text" name="identificadorEliminar" value="<?= $fila["identificador"]; ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
