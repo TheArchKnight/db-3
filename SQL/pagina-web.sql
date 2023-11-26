@@ -1,3 +1,5 @@
+DROP SCHEMA exterminator;
+
 CREATE SCHEMA exterminator;
 USE exterminator;
 
@@ -24,4 +26,3 @@ CREATE TABLE cotizacion (
 -- Agregar restricciones de clave foránea después de la creación de ambas tablas
 ALTER TABLE visita ADD FOREIGN KEY (cotizacion) REFERENCES cotizacion(codigo);
 ALTER TABLE cotizacion ADD FOREIGN KEY (visita_proxima) REFERENCES visita(identificador);
-
