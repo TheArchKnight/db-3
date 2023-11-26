@@ -9,7 +9,9 @@ $monto = $_POST["monto"];
 $detalle = $_POST["detalle"];
 
 // Query SQL a la BD. Si tienen que hacer comprobaciones, hacerlas acá (Generar una query diferente para casos especiales)
-$query = "INSERT INTO `cliente`(`codigo`, `monto`, `detalle`) VALUES (`$codigo`, `$monto`, `$detalle`)";
+//
+echo $_POST;
+$query = "INSERT INTO cotizacion(codigo, monto, detalle) VALUES ('$codigo', '$monto', '$detalle')";
 
 // Ejecutar consulta
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -17,7 +19,7 @@ $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 // Redirigir al usuario a la misma pagina
 if($result):
     // Si fue exitosa, redirigirse de nuevo a la página de la entidad
-	header("Location: cliente.php");
+	header("Location: cotizacion.php");
 else:
 	echo "Ha ocurrido un error al crear la persona";
 endif;

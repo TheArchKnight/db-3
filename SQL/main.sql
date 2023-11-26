@@ -1,3 +1,4 @@
+--Crear schema de base de datos y usarlo por defecto
 CREATE SCHEMA exterminator;
 USE exterminator;
 
@@ -66,7 +67,7 @@ CREATE TABLE visita(
    observaciones VARCHAR(50),
    grupo_fumigacion INT,
    cotizacion INT,
-   cotizacion_adicionada INT,
+   cotizacion_adicionada INT UNIQUE,
    FOREIGN KEY (cotizacion_adicionada) REFERENCES cotizacion(codigo),
    FOREIGN KEY (cotizacion) REFERENCES cotizacion(codigo),
    FOREIGN KEY (grupo_fumigacion) REFERENCES grupo_fumigacion(departamento)
@@ -82,9 +83,9 @@ CREATE TABLE tarea (
    clave INT PRIMARY KEY,
    descripcion VARCHAR(220),
    grupo_fumigacion INT,
-   tarea_procedida INT,
-   tarea_antecedida INT,
-   permiso INT,
+   tarea_procedida INT UNIQUE,
+   tarea_antecedida INT UNIQUE,
+   permiso INT UNIQUE,
    FOREIGN KEY (permiso) REFERENCES permiso(clave_acceso),
    FOREIGN KEY (tarea_procedida) REFERENCES tarea(clave),
    FOREIGN KEY (tarea_antecedida) REFERENCES tarea(clave),

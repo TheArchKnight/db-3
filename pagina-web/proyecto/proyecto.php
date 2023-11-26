@@ -55,7 +55,7 @@ include "../includes/header.php";
 
                 <?php
                 // Importar el código del otro archivo
-                require("../cliente/cliente_select.php");
+                require("../cotizacion/cotizacion_select.php");
                 
                 // Verificar si llegan datos
                 if($resultadoCotizacion):
@@ -65,7 +65,7 @@ include "../includes/header.php";
                 ?>
 
                 <!-- Opción que se genera -->
-                <option value="<?= $fila["correo"]; ?>"><?= $fila["nombre"]; ?> - Correo <?= $fila["correo"]; ?></option>
+                <option name="cotizacion" value="<?= $fila["codigo"]; ?>">Codigo <?= $fila["codigo"]; ?></option>
 
                 <?php
                         // Cerrar los estructuras de control

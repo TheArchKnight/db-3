@@ -4,17 +4,17 @@ include "../includes/header.php";
 
 <!-- TÍTULO. Cambiarlo, pero dejar especificada la analogía -->
 <!-- TÍTULO. Mirar si tambien cambiarlo en el index -->
-<h1 class="mt-3">COTIZACIÓN</h1>
+<h1 class="mt-3">COTIZACIÓN 12</h1>
 
 <!-- FORMULARIO. Cambiar los campos de acuerdo a su trabajo -->
 <div class="formulario p-4 m-3 border rounded-3">
 
-    <form action="cliente_insert.php" method="post" class="form-group">
+    <form action="cotizacion_insert.php" method="post" class="form-group">
 
         <!-- CP -->
         <div class="mb-3">
             <label for="codigo" class="form-label">Código</label>
-            <input type="number" class="form-control" id="codigo"  required>
+            <input type="number" class="form-control" id="codigo" name="codigo" required>
         </div>
 
         <div class="mb-3">
@@ -34,19 +34,15 @@ include "../includes/header.php";
 </div>
 
 
-
-        <button type="submit" class="btn btn-primary">Agregar</button>
-
-    </form>
     
 </div>
 
 <?php
 // Importar el código del otro archivo
-require("cliente_select.php");
+require("cotizacion_select.php");
 
 // Verificar si llegan datos
-if($resultadoCliente and $resultadoCliente->num_rows > 0):
+if($resultadoCotizacion and $resultadoCotizacion->num_rows > 0):
 ?>
 
 <!-- MOSTRAR LA TABLA. Cambiar las cabeceras -->
@@ -67,19 +63,19 @@ if($resultadoCliente and $resultadoCliente->num_rows > 0):
 
             <?php
             // Iterar sobre los registros que llegaron
-            foreach ($resultadoCliente as $fila):
+            foreach ($resultadoCotizacion as $fila):
             ?>
 
             <!-- Fila que se generará -->
             <tr>
                 <!-- Cada una de las columnas, con su valor correspondiente -->
-                <td class="text-center"><?= $fila["Código"]; ?></td>
-                <td class="text-center"><?= $fila["Monto"]; ?></td>
-                <td class="text-center"><?= $fila["Detalle"]; ?></td>
+                <td class="text-center"><?= $fila["codigo"]; ?></td>
+                <td class="text-center"><?= $fila["monto"]; ?></td>
+                <td class="text-center"><?= $fila["detalle"]; ?></td>
                 
                 <!-- Botón de eliminar. Debe de incluir la CP de la entidad para identificarla -->
                 <td class="text-center">
-                    <form action="cliente_delete.php" method="post">
+                    <form action="cotizacion_delete.php" method="post">
                         <input hidden type="text" name="codigoEliminar" value="<?= $fila["codigo"]; ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>

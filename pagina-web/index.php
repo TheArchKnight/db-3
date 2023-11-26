@@ -43,7 +43,7 @@
     <div class="enlaces">
         <h2>Enlaces</h2>
         <ul>
-            <li><a href="cliente/cliente.php">COTIZACIÓN</a></li>
+            <li><a href="cotizacion/cotizacion.php">COTIZACIÓN</a></li>
             <li><a href="proyecto/proyecto.php">VISITA</a></li>
             <li><a href="consultas/consulta1.php">Consulta 1</a></li>
             <li><a href="consultas/consulta2.php">Consulta 2</a></li>

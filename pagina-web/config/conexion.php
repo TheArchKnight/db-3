@@ -6,6 +6,6 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db = "ejemplo2";
+$db = "exterminator";
 
 $conn = new mysqli($host, $user, $pass, $db) or die("Error al conectar a la DB " . mysqli_error($link));
