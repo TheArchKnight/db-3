@@ -4,32 +4,36 @@ include "../includes/header.php";
 
 <!-- TÍTULO. Cambiarlo, pero dejar especificada la analogía -->
 <!-- TÍTULO. Mirar si tambien cambiarlo en el index -->
-<h1 class="mt-3">CLIENTE</h1>
+<h1 class="mt-3">COTIZACIÓN</h1>
 
 <!-- FORMULARIO. Cambiar los campos de acuerdo a su trabajo -->
 <div class="formulario p-4 m-3 border rounded-3">
 
     <form action="cliente_insert.php" method="post" class="form-group">
 
+        <!-- CP -->
         <div class="mb-3">
-            <label for="correo" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="correo" name="correo" required>
+            <label for="codigo" class="form-label">Código</label>
+            <input type="number" class="form-control" id="codigo"  required>
         </div>
 
         <div class="mb-3">
-            <label for="telefono" class="form-label">Teléfono</label>
-            <input type="number" class="form-control" id="telefono" name="telefono" required>
+            <label for="monto" class="form-label">Monto</label>
+            <input type="number" class="form-control" id="monto" name="monto"  required>
         </div>
 
         <div class="mb-3">
-            <label for="direccion" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="direccion" name="direccion" required>
+            <label for="detalle" class="form-label">Detalle</label>
+            <input type="text" class="form-control" id="detalle" name="detalle" required>
+        </div>
         </div>
 
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" required>
-        </div>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+    </form>
+
+</div>
+
+
 
         <button type="submit" class="btn btn-primary">Agregar</button>
 
@@ -53,10 +57,9 @@ if($resultadoCliente and $resultadoCliente->num_rows > 0):
         <!-- Títulos de la tabla, cambiarlos -->
         <thead class="table-dark">
             <tr>
-                <th scope="col" class="text-center">Correo</th>
-                <th scope="col" class="text-center">Dirección</th>
-                <th scope="col" class="text-center">Fecha</th>
-                <th scope="col" class="text-center">Nombre</th>
+                <th scope="col" class="text-center">Código</th>
+                <th scope="col" class="text-center">Monto</th>
+                <th scope="col" class="text-center">Detalle</th>
             </tr>
         </thead>
 
@@ -70,15 +73,14 @@ if($resultadoCliente and $resultadoCliente->num_rows > 0):
             <!-- Fila que se generará -->
             <tr>
                 <!-- Cada una de las columnas, con su valor correspondiente -->
-                <td class="text-center"><?= $fila["Correo"]; ?></td>
-                <td class="text-center"><?= $fila["Teléfono"]; ?></td>
-                <td class="text-center"><?= $fila["Rirección"]; ?></td>
-                <td class="text-center"><?= $fila["Nombre"]; ?></td>
+                <td class="text-center"><?= $fila["Código"]; ?></td>
+                <td class="text-center"><?= $fila["Monto"]; ?></td>
+                <td class="text-center"><?= $fila["Detalle"]; ?></td>
                 
                 <!-- Botón de eliminar. Debe de incluir la CP de la entidad para identificarla -->
                 <td class="text-center">
                     <form action="cliente_delete.php" method="post">
-                        <input hidden type="text" name="correoEliminar" value="<?= $fila["Correo"]; ?>">
+                        <input hidden type="text" name="codigoEliminar" value="<?= $fila["codigo"]; ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>

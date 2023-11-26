@@ -4,13 +4,12 @@
 require('../config/conexion.php');
 
 // Sacar los datos del formulario. Cada input se identifica con su "name"
-$correo = $_POST["correo"];
-$telefono = $_POST["telefono"];
-$direccion = $_POST["direccion"];
-$nombre = $_POST["nombre"];
+$codigo = $_POST["codigo"];
+$monto = $_POST["monto"];
+$detalle = $_POST["detalle"];
 
 // Query SQL a la BD. Si tienen que hacer comprobaciones, hacerlas acá (Generar una query diferente para casos especiales)
-$query = "INSERT INTO `cliente`(`correo`, `telefono`, `direccion`, `nombre`) VALUES (`$correo`, `$telefono`, `$direccion`, `$nombre`)";
+$query = "INSERT INTO `cliente`(`codigo`, `monto`, `detalle`) VALUES (`$codigo`, `$monto`, `$detalle`)";
 
 // Ejecutar consulta
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));

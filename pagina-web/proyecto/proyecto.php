@@ -3,16 +3,16 @@ include "../includes/header.php";
 ?>
 
 <!-- TÍTULO. Cambiarlo, pero dejar especificada la analogía -->
-<h1 class="mt-3">LLAMADA</h1>
+<h1 class="mt-3">VISITA</h1>
 
 <!-- FORMULARIO. Cambiar los campos de acuerdo a su trabajo -->
 <div class="formulario p-4 m-3 border rounded-3">
 
     <form action="proyecto_insert.php" method="post" class="form-group">
-
+        <!-- CP -->
         <div class="mb-3">
-            <label for="codigo" class="form-label">Código</label>
-            <input type="number" class="form-control" id="codigo" name="codigo" required>
+            <label for="identificador" class="form-label">Identificador</label>
+            <input type="number" class="form-control" id="identificador" name="identificador" min="1" required>
         </div>
 
         <div class="mb-3">
@@ -25,11 +25,30 @@ include "../includes/header.php";
             <input type="time" class="form-control" id="hora" name="hora" required>
         </div>
 
-        
-        <!-- Consultar la lista de clientes y desplegarlos -->
         <div class="mb-3">
-            <label for="cliente" class="form-label">Cliente</label>
-            <select name="cliente" id="cliente" class="form-select">
+            <label for="costo" class="form-label">Costo</label>
+            <input type="number" class="form-control" id="costo" name="costo"  required>
+        </div>
+
+        <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo</label>
+            <input type="text" class="form-control" id="tipo" name="tipo" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="reporte" class="form-label">Reporte</label>
+            <input type="text" class="form-control" id="reporte" name="reporte" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="observaciones" class="form-label">Observaciones</label>
+            <input type="text" class="form-control" id="observaciones" name="observaciones" required>
+        </div>
+
+        <!-- Consultar la lista de cotizaciones y desplegarlass -->
+        <div class="mb-3">
+            <label for="cotizacion" class="form-label">Cotizacion</label>
+            <select name="cotizacion" id="cotizacion" class="form-select">
                 
                 <!-- Option por defecto -->
                 <option value="" selected disabled hidden></option>
@@ -39,10 +58,10 @@ include "../includes/header.php";
                 require("../cliente/cliente_select.php");
                 
                 // Verificar si llegan datos
-                if($resultadoCliente):
+                if($resultadoCotizacion):
                     
                     // Iterar sobre los registros que llegaron
-                    foreach ($resultadoCliente as $fila):
+                    foreach ($resultadoCotizacion as $fila):
                 ?>
 
                 <!-- Opción que se genera -->
@@ -78,10 +97,16 @@ if($resultadoProyecto and $resultadoProyecto->num_rows > 0):
         <!-- Títulos de la tabla, cambiarlos -->
         <thead class="table-dark">
             <tr>
-                <th scope="col" class="text-center">Código</th>
+                <th scope="col" class="text-center">Indentificador</th>
                 <th scope="col" class="text-center">Fecha</th>
                 <th scope="col" class="text-center">Hora</th>
-                <th scope="col" class="text-center">Cliente</th>
+                <th scope="col" class="text-center">Costo</th>
+                <th scope="col" class="text-center">Tipo</th>
+                <th scope="col" class="text-center">Reporte</th>
+                <th scope="col" class="text-center">Observaciones</th>
+
+                <!-- Entidad relacionada -->
+                <th scope="col" class="text-center">Cotizacion</th>
             </tr>
         </thead>
 
@@ -95,15 +120,22 @@ if($resultadoProyecto and $resultadoProyecto->num_rows > 0):
             <!-- Fila que se generará -->
             <tr>
                 <!-- Cada una de las columnas, con su Hora correspondiente -->
-                <td class="text-center"><?= $fila["codigo"]; ?></td>
+                <td class="text-center"><?= $fila["Identificador"]; ?></td>
                 <td class="text-center"><?= $fila["fecha"]; ?></td>
-                <td class="text-center">$<?= $fila["Hora"]; ?></td>
-                <td class="text-center">Correo <?= $fila["cliente"]; ?></td>
+                <td class="text-center"><?= $fila["Hora"]; ?></td>
+                <td class="text-center"><?= $fila["Costo"]; ?></td>
+                <td class="text-center"><?= $fila["Tipo"]; ?></td>
+                <td class="text-center"><?= $fila["Reporte"]; ?></td>
+                <td class="text-center"><?= $fila["Observaciones"]; ?></td>
+
+
+                <!-- Entidad relacionada -->
+                <td class="text-center">Codigo <?= $fila["cotizacion"]; ?></td>
                 
                 <!-- Botón de eliminar. Debe de incluir la CP de la entidad para identificarla -->
                 <td class="text-center">
                     <form action="proyecto_delete.php" method="post">
-                        <input hidden type="text" name="codigoEliminar" value="<?= $fila["codigo"]; ?>">
+                        <input hidden type="text" name="identificadorEliminar" value="<?= $fila["identificador"]; ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>

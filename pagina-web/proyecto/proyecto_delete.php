@@ -4,10 +4,10 @@
 require('../config/conexion.php');
 
 // Sacar la CP de la entidad
-$codigoEliminar = $_POST["codigoEliminar"];
+$identificadorEliminar = $_POST["identificadorEliminar"];
 
 // Query SQL a la BD
-$query = "DELETE FROM proyecto WHERE codigo = '$codigoEliminar'";
+$query = "DELETE FROM proyecto WHERE identificador = '$identificadorEliminar'";
 
 // Ejecutar consulta
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
