@@ -10,10 +10,12 @@ include "../includes/header.php";
 
     <form action="visita_insert.php" method="post" class="form-group">
         <!-- CP -->
+<!--
         <div class="mb-3">
             <label for="identificador" class="form-label">Identificador</label>
             <input type="number" class="form-control" id="identificador" name="identificador" min="1" required>
         </div>
+-->
 
         <div class="mb-3">
             <label for="fecha" class="form-label">Fecha</label>
