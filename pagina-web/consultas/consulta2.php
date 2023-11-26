@@ -17,7 +17,13 @@ require('../config/conexion.php');
 
 // Query SQL a la BD -> Crearla acá (No está completada, cambiarla a su contexto y a su analogía)
 //Mirar lo del numero de visitas
-$query = "SELECT codigo, detalle FROM cotizacion";
+$query = "SELECT c.codigo, c.detalle, COUNT(v.identificador) as numero_de_visitas
+FROM cotizacion c
+JOIN visita v ON c.codigo = v.cotizacion
+WHERE 
+    (SELECT COUNT(DISTINCT tipo) FROM visita WHERE cotizacion = c.codigo) = 1 AND 
+    (SELECT COUNT(*) FROM visita WHERE cotizacion = c.codigo) >= 3
+GROUP BY c.codigo, c.detalle;";
 
 // Ejecutar la consulta
 $resultadoC2 = mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -56,7 +62,7 @@ if($resultadoC2 and $resultadoC2->num_rows > 0):
                 <!-- Cada una de las columnas, con su valor correspondiente -->
                 <td class="text-center"><?= $fila["codigo"]; ?></td>
                 <td class="text-center"><?= $fila["detalle"]; ?></td>
-                <td class="text-center"><?= "numvisitas"; ?></td>
+                <td class="text-center"><?= $fila["numero_de_visitas"]; ?></td>
             </tr>
 
             <?php

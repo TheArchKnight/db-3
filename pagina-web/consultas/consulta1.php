@@ -15,7 +15,15 @@ a la suma de los costos correspondientes a las visitas que suma.
 require('../config/conexion.php');
 
 // Query SQL a la BD -> Crearla acá (No está completada, cambiarla a su contexto y a su analogía)
-$query = "SELECT codigo, detalle FROM cotizacion";
+$query = "SELECT c.codigo, c.detalle
+FROM cotizacion c
+LEFT JOIN (
+    SELECT cotizacion, SUM(costo) AS total_costo
+    FROM visita
+    GROUP BY cotizacion
+) v ON c.codigo = v.cotizacion
+WHERE c.monto >= IFNULL(v.total_costo, 0);
+";
 
 // Ejecutar la consulta
 $resultadoC1 = mysqli_query($conn, $query) or die(mysqli_error($conn));
