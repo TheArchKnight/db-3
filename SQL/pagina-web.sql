@@ -27,6 +27,17 @@ CREATE TABLE cotizacion (
 ALTER TABLE visita ADD FOREIGN KEY (cotizacion) REFERENCES cotizacion(codigo);
 ALTER TABLE cotizacion ADD FOREIGN KEY (visita_proxima) REFERENCES visita(identificador);
 
+
+-- consulta 1
+SELECT c.codigo, c.detalle
+FROM cotizacion c
+LEFT JOIN (
+    SELECT cotizacion, SUM(costo) AS total_costo
+    FROM visita
+    GROUP BY cotizacion
+) v ON c.codigo = v.cotizacion
+WHERE c.monto >= IFNULL(v.total_costo, 0);
+
 -- Consulta 2
 SELECT c.codigo, c.detalle, COUNT(v.identificador) as numero_de_visitas
 FROM COTIZACIÓN c
