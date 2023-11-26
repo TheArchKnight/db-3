@@ -26,3 +26,12 @@ CREATE TABLE cotizacion (
 -- Agregar restricciones de clave foránea después de la creación de ambas tablas
 ALTER TABLE visita ADD FOREIGN KEY (cotizacion) REFERENCES cotizacion(codigo);
 ALTER TABLE cotizacion ADD FOREIGN KEY (visita_proxima) REFERENCES visita(identificador);
+
+-- Consulta 2
+SELECT c.codigo, c.detalle, COUNT(v.identificador) as numero_de_visitas
+FROM COTIZACIÓN c
+JOIN VISITA v ON c.codigo = v.sumada_a 
+WHERE 
+    (SELECT COUNT(DISTINCT tipo) FROM VISITA WHERE sumada_a = c.codigo) = 1 AND 
+    (SELECT COUNT(*) FROM VISITA WHERE sumada_a = c.codigo) >= 3
+GROUP BY c.codigo, c.detalle;
