@@ -14,4 +14,4 @@
 <body>
     <div class="container mt-5">
 
-        <a href="/">&#8592; Volver al inicio</a>
+        <a href="/index.php">&#8592; Volver al inicio</a>
