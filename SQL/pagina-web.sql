@@ -1,0 +1,22 @@
+CREATE SCHEMA exterminator;
+USE exterminator;
+
+-- Crear la tabla "visita"
+CREATE TABLE visita (
+    identificador INT PRIMARY KEY,
+    fecha DATE NOT NULL,
+    hora TIME NOT NULL,
+    costo INT NOT NULL,
+    tipo VARCHAR(255) NOT NULL,
+    reporte TEXT NOT NULL,
+    observaciones TEXT NOT NULL
+
+    FOREIGN KEY(cotizacion) REFERENCES cotizacion,
+);
+
+-- Crear la tabla "cotizacion"
+CREATE TABLE cotizacion (
+    codigo INT PRIMARY KEY,
+    monto INT NOT NULL,
+    detalle TEXT NOT NULL
+);
