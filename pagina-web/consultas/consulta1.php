@@ -6,7 +6,7 @@ include "../includes/header.php";
 <h1 class="mt-3">Consulta 1</h1>
 
 <p class="mt-3">
-Mostrar el codigo y detalle de cada cotización cuto monto sea mayor o igual
+Mostrar el codigo y detalle de cada cotización cuyo monto sea mayor o igual
 a la suma de los costos correspondientes a las visitas que suma.
 </p>
 
