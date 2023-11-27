@@ -103,7 +103,7 @@ CREATE TABLE producto(
 );
 
 CREATE TABLE empleado_en_grupo(
-   cedula_empleado INT REFERENCES empleado_de_grupo, 
-   codigo_departamento INT REFERENCES grupo_fumigacion,
-   PRIMARY KEY clave_permiso, codigo-visita
+   cedula_empleado INT REFERENCES empleado_de_grupo(cedula_empleado), 
+   codigo_departamento INT REFERENCES grupo_fumigacion(codigo_departamento),
+   PRIMARY KEY (cedula_empleado, codigo_departamento)
 );
