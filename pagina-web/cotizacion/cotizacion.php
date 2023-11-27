@@ -4,7 +4,7 @@ include "../includes/header.php";
 
 <!-- TÍTULO. Cambiarlo, pero dejar especificada la analogía -->
 <!-- TÍTULO. Mirar si tambien cambiarlo en el index -->
-<h1 class="mt-3">COTIZACIÓN 12</h1>
+<h1 class="mt-3">COTIZACIÓN</h1>
 
 <!-- FORMULARIO. Cambiar los campos de acuerdo a su trabajo -->
 <div class="formulario p-4 m-3 border rounded-3">
